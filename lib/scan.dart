@@ -7,7 +7,7 @@ class ScanPage extends StatefulWidget {
 }
 
 class _ScanPageState extends State<ScanPage> {
-  String qrCodeResult = "Not Yet Scanned";
+  ScanResult qrCodeResult = ScanResult();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +27,7 @@ class _ScanPageState extends State<ScanPage> {
               textAlign: TextAlign.center,
             ),
             Text(
-              qrCodeResult,
+              qrCodeResult.rawContent,
               style: TextStyle(
                 fontSize: 20.0,
               ),
@@ -39,9 +39,8 @@ class _ScanPageState extends State<ScanPage> {
             FlatButton(
               padding: EdgeInsets.all(15.0),
               onPressed: () async {
-
-
-                String codeSanner = await BarcodeScanner.scan();    //barcode scnner
+                ScanResult codeSanner =
+                    await BarcodeScanner.scan(); //barcode scnner
                 setState(() {
                   qrCodeResult = codeSanner;
                 });
@@ -52,8 +51,6 @@ class _ScanPageState extends State<ScanPage> {
                 //   BarcodeScanner.CameraAccessDenied;   we can print that user has denied for the permisions
                 //   BarcodeScanner.UserCanceled;   we can print on the page that user has cancelled
                 // }
-
-
               },
               child: Text(
                 "Open Scanner",
